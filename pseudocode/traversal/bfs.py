@@ -9,8 +9,8 @@ def run(graph, start):
         visited.add(node)
         ordering.append(node)
         yield "visit " + str(node)
-        for edge in graph.Out(node):
-            if edge.dst not in visited:
-                frontier.append(edge.dst)
+        for out_edge in graph.Out(node):
+            if out_edge.dst not in visited:
+                frontier.append(out_edge.dst)
         yield
     return ordering

@@ -7,7 +7,8 @@ def run(graph, start):
     ordering = []
     yield "start at " + str(start)
     while not_visited:
-        node = min(not_visited, key=lambda n: dist[n])
+        # Ties go to the alphabetically first node.
+        node = min(not_visited, key=lambda n: (dist[n], n))
         if dist[node] == float("inf"):
             yield "unreachable nodes remain"
             return
@@ -15,8 +16,11 @@ def run(graph, start):
         visited.add(node)
         ordering.append(node)
         yield "settle " + str(node) + " at " + str(dist[node])
+        # One step per edge examined.
         for edge in graph.Out(node):
             if dist[edge.dst] > dist[edge.src] + edge.weight:
                 dist[edge.dst] = dist[edge.src] + edge.weight
                 pred[edge.dst] = edge.src
                 yield "relax " + str(edge.src) + "->" + str(edge.dst)
+            else:
+                yield "no improvement via " + str(edge.src) + "->" + str(edge.dst)

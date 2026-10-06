@@ -8,7 +8,7 @@ def run(A, v, nbuckets):
             b = (b + 1) % nbuckets
             probes = probes + 1
             yield "occupied, probe " + str(b)
-            if probes > nbuckets:
+            if probes >= nbuckets:
                 yield "table is full"
                 return False
         buckets[b] = value
@@ -16,7 +16,7 @@ def run(A, v, nbuckets):
     b = v % nbuckets
     yield "search " + str(v) + " from " + str(b)
     probes = 0
-    while buckets[b] is not None and probes <= nbuckets:
+    while buckets[b] is not None and probes < nbuckets:
         if buckets[b] == v:
             yield "found at " + str(b)
             return True

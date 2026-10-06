@@ -21,17 +21,19 @@ def partition(A, lo, hi):
     j = hi
     yield "pivot to lo"
     while True:
+        # One step per comparison.
         while True:
             i = i + 1
+            yield "compare A[i] with pivot"
             if not A[i] < v:
                 break
             if i + 1 >= hi:
                 break
         while True:
             j = j - 1
+            yield "compare A[j] with pivot"
             if not A[j] > v:
                 break
-        yield
         if i >= j:
             A[lo], A[j] = A[j], A[lo]
             yield "place pivot"

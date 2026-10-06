@@ -1,5 +1,5 @@
 def run(tree, v):
-    tree.root = yield from insert(tree.root, v)
+    yield from insert(tree, None, tree.root, v)
 
 
 def height(node):
@@ -29,18 +29,28 @@ def rotate_left(x):
     return y
 
 
-def insert(node, v):
+def replace(tree, parent, node):
+    # Replace the subtree root with `node`.
+    if parent is None:
+        tree.root = node
+    elif node.value < parent.value:
+        parent.left = node
+    else:
+        parent.right = node
+
+
+def insert(tree, parent, node, v):
     if node is None:
         fresh = Node(v)
         retag(fresh)
+        replace(tree, parent, fresh)
         yield "insert " + str(v)
-        return fresh
+        return
     if v == node.value:
-        return node
-    if v < node.value:
-        node.left = yield from insert(node.left, v)
-    else:
-        node.right = yield from insert(node.right, v)
+        yield "already present"
+        return
+    child = node.left if v < node.value else node.right
+    yield from insert(tree, node, child, v)
     retag(node)
     yield "retag " + str(node.value)
 
@@ -49,12 +59,11 @@ def insert(node, v):
         if v > node.left.value:
             node.left = rotate_left(node.left)
             yield "zig-zag at " + str(node.value)
-        node = rotate_right(node)
+        replace(tree, parent, rotate_right(node))
         yield "rotate right"
     elif balance < -1:
         if v < node.right.value:
             node.right = rotate_right(node.right)
             yield "zig-zag at " + str(node.value)
-        node = rotate_left(node)
+        replace(tree, parent, rotate_left(node))
         yield "rotate left"
-    return node

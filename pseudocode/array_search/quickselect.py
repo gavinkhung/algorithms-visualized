@@ -2,7 +2,10 @@ import random
 
 
 def run(A, v):
-    yield from select(A, 0, len(A), v)
+    if not 0 <= v < len(A):
+        yield "rank " + str(v) + " is out of range 0.." + str(len(A) - 1)
+        return None
+    return (yield from select(A, 0, len(A), v))
 
 
 def select(A, lo, hi, i):
@@ -26,17 +29,19 @@ def partition(A, lo, hi):
     j = hi
     yield "pivot to lo"
     while True:
+        # One step per comparison.
         while True:
             i = i + 1
+            yield "compare A[i] with pivot"
             if not A[i] < pivot:
                 break
             if i + 1 >= hi:
                 break
         while True:
             j = j - 1
+            yield "compare A[j] with pivot"
             if not A[j] > pivot:
                 break
-        yield
         if i >= j:
             A[lo], A[j] = A[j], A[lo]
             yield "place pivot"
