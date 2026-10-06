@@ -14,3 +14,8 @@ book/embed/
 book/gifs/
 
 .DS_Store
+
+# Local-only tests
+tests/test_algoviz.py
+tests/test_domains.py
+tests/test_frame_budget.py
