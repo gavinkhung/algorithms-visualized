@@ -47,4 +47,5 @@ site:
     hide_outline: true
     hide_toc: false
     style: ./style.css
+    favicon: ./favicon.ico
     analytics_google: G-KLND2F039J
