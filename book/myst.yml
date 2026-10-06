@@ -47,3 +47,4 @@ site:
     hide_outline: true
     hide_toc: false
     style: ./style.css
+    analytics_google: G-KLND2F039J
