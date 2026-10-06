@@ -1,0 +1,68 @@
+# Build the book and publish it to GitHub Pages.
+#
+# The site is fully static: every visualizer is a marimo notebook exported to
+# WebAssembly, so Python runs in the reader's browser and no server is needed.
+#
+# One-time setup: repo Settings -> Pages -> Source: "GitHub Actions".
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. A newer push replaces any run still queued, but never
+# cancels one already deploying (as GitHub's own Pages workflow does), so the
+# site is never left half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test
+        run: make test
+
+      # Where Pages will serve the site, from the repo's Pages settings:
+      #   project site   base_path=/algorithms-visualized
+      #                  base_url=https://gavinkhung.github.io/algorithms-visualized
+      #   custom domain  base_path=(empty)  base_url=https://algorithms-visualized.com
+      # Changing the custom domain does not trigger a build: re-run this
+      # workflow afterwards so links match the new address.
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        run: >-
+          make build
+          BASE_URL=${{ steps.pages.outputs.base_path }}
+          SITE_URL=${{ steps.pages.outputs.base_url }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: book/_build/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

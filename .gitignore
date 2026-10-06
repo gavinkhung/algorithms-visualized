@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# marimo session caches
+__marimo__/
+
+# Generated output (rebuild with `make build`)
+build/
+book/_build/
+book/embed/
+book/gifs/
+
+.DS_Store
+
+tests/

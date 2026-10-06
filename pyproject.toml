@@ -1,0 +1,37 @@
+[project]
+name = "algo-visualized"
+version = "0.1.0"
+description = "Animated, editable visualizations of the CS 161 algorithms"
+requires-python = ">=3.11"
+dependencies = [
+    # Pinned to one series so every notebook's __generated_with marker, the
+    # local editor and the exported book all agree.
+    "marimo>=0.24,<0.25",
+    "matplotlib",
+    "networkx",
+    "numpy",
+    # GIFs: the "Download animation" button and utils/make_gifs.py
+    "pillow",
+    # The figures' style, as in Machine Learning Visualized
+    "scienceplots>=2.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.uv]
+# Notebooks and a library folder, not an installable package.
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The repo root holds algoviz/; tests import it from there.
+pythonpath = ["."]
+
+[tool.marimo.runtime]
+# The notebooks in notebooks/ import algoviz/ from the repo root.
+pythonpath = ["."]
+# Re-import edited algoviz modules and mark dependent cells stale.
+auto_reload = "lazy"

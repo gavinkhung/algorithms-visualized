@@ -1,0 +1,84 @@
+/* Georgia throughout, as in Machine Learning Visualized. */
+:root {
+  --pst-font-family-heading: Georgia, serif;
+  --font-sans: Georgia, serif;
+  --font-serif: Georgia, serif;
+}
+
+html,
+body,
+.article,
+.prose,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+aside,
+.header-style {
+  font-family: Georgia, serif !important;
+}
+
+/* Use the outline column for the body when the outline is hidden. */
+.col-body {
+  grid-column: body-start / page-end;
+}
+
+/* Remove the default ~65ch text width cap. */
+.article.prose,
+.prose {
+  max-width: none;
+}
+
+/* Page width. */
+article.article {
+  max-width: 90rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* Card headers. */
+.myst-card-header,
+.myst-card > header,
+.myst-card header {
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.dark .myst-card-header,
+.dark .myst-card > header,
+.dark .myst-card header {
+  background-color: #292524;
+}
+
+/* Fixed height for the visualizer embeds, replacing MyST's aspect-ratio
+   box. */
+:has(> iframe[src*="/embed/"]) {
+  padding-bottom: 0 !important;
+  width: 100% !important;
+  height: 1000px;
+}
+
+/* Embeds span the full page width. */
+article > :has(iframe[src*="/embed/"]) {
+  grid-column: page-start / page-end;
+}
+
+/* Taller on narrow screens, where the visualizer's panes stack. */
+@media (max-width: 760px) {
+  :has(> iframe[src*="/embed/"]) {
+    height: 1950px;
+  }
+}
+
+/* Hide the theme's "Download Article" button. */
+.myst-article > .border-y > a:last-child {
+  display: none;
+}
+
+/* No external-link arrow after badge images. */
+a:has(img) .link-icon {
+  display: none;
+}

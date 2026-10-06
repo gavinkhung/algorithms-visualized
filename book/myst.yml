@@ -1,0 +1,49 @@
+# MyST (Jupyter Book 2) site configuration.
+#
+#   make build  build the site into book/_build/
+#   make dev    build it and serve it locally
+
+version: 1
+
+project:
+  id: algorithms-visualized
+  title: Algorithms Visualized
+  description: >-
+    Interactive visualizations of the algorithms from CS161, each one
+    animated step by step in the browser.
+  keywords:
+    - algorithms
+    - sorting
+    - graphs
+    - data structures
+  authors:
+    - name: Gavin Hung
+      url: https://www.linkedin.com/in/gavinkhung/
+  license: MIT
+
+  toc:
+    - file: index.md
+
+    - title: Arrays
+      children:
+        - file: array_sorting.md
+        - file: array_search.md
+        - file: hashing.md
+
+    - title: Trees
+      children:
+        - file: tree_search.md
+        - file: tree_insert.md
+
+    - title: Graphs
+      children:
+        - file: graph_traversal.md
+        - file: shortest_path.md
+        - file: mst.md
+
+site:
+  template: article-theme
+  options:
+    hide_outline: true
+    hide_toc: false
+    style: ./style.css

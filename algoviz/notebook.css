@@ -1,0 +1,10 @@
+/* Stylesheet for every notebook; marimo copies it into each widget. */
+
+/* Keep loading spinners turning when reduced motion is on, so the GIF
+   download shows it is working. */
+@media (prefers-reduced-motion: reduce) {
+  .marimo .animate-spin {
+    animation-duration: 1s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
