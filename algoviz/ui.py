@@ -18,29 +18,47 @@ from .draw import color_for
 SPEEDS = ["0.1s", "0.25s", "0.5s", "1s"]
 
 
-def playback_controls(set_step, speeds=SPEEDS, default="0.25s"):
-    """Return ``play, speed, transport``.
+def playback_controls(
+    set_step, get_playing, set_playing, speeds=SPEEDS, default="0.25s"
+):
+    """Return ``speed, steps``.
 
-    ``play`` and ``speed`` must be bound to notebook variables because other
-    cells read them. ``transport`` is the row of step controls; it holds the
-    buttons, which keeps them alive.
+    ``speed`` must be bound to a notebook variable because another cell reads
+    it. ``steps`` is the row of step buttons; it holds them, which keeps them
+    alive. Stepping by hand pauses auto-play.
     """
-    play = mo.ui.switch(label="auto-play")
+
+    def step(by):
+        def press(_):
+            if get_playing():
+                set_playing(False)
+            set_step(lambda v: max(v + by, 0))
+
+        return press
+
     restart = mo.ui.button(label="restart", on_change=lambda _: set_step(0))
-    prev = mo.ui.button(
-        label="< step", on_change=lambda _: set_step(lambda v: max(v - 1, 0))
-    )
-    nxt = mo.ui.button(
-        label="step >", on_change=lambda _: set_step(lambda v: v + 1)
-    )
+    prev = mo.ui.button(label="< step", on_change=step(-1))
+    nxt = mo.ui.button(label="step >", on_change=step(1))
     speed = mo.ui.refresh(
         options=speeds, default_interval=default, label="speed"
     )
-    transport = mo.hstack([play, restart, prev, nxt], justify="start", gap=1)
-    return play, speed, transport
+    steps = mo.hstack([restart, prev, nxt], justify="start", gap=1)
+    return speed, steps
 
 
-def heartbeat(play, speed, frames, get_step, set_step):
+def transport(get_playing, set_playing, steps):
+    """The auto-play switch followed by the step buttons.
+
+    Call this from its own cell: it reads ``get_playing``, so pausing re-runs
+    it and redraws the switch as off.
+    """
+    play = mo.ui.switch(
+        label="auto-play", value=get_playing(), on_change=set_playing
+    )
+    return mo.hstack([play, steps], justify="start", gap=1)
+
+
+def heartbeat(playing, speed, frames, get_step, set_step):
     """Advance one frame per tick while playing; return the timer widget.
 
     Call this from its own cell, the only one that reads ``speed``; every
@@ -52,7 +70,7 @@ def heartbeat(play, speed, frames, get_step, set_step):
         current, last = get_step(), len(frames) - 1
         if current > last:
             set_step(last)
-        elif play.value and current < last:
+        elif playing and current < last:
             set_step(current + 1)
     return speed
 

@@ -1,0 +1,72 @@
+<!-- Loading message, shown until the notebook draws its first output. -->
+<div id="algoviz-loading" role="status" aria-live="polite">
+  <div class="algoviz-spinner"></div>
+  <p class="algoviz-title">Starting the visualizer…</p>
+  <p class="algoviz-detail">
+    Python runs right in your browser. The first visit may take up to 10
+    seconds. After the first visit, it is cached.
+  </p>
+</div>
+<style>
+  #algoviz-loading {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 10rem 1rem 1rem;
+    background: #fff;
+    color: #333;
+    font-family: Georgia, serif;
+    text-align: center;
+    transition: opacity 0.3s;
+  }
+  #algoviz-loading.done {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #algoviz-loading p {
+    margin: 0;
+    max-width: 28rem;
+  }
+  .algoviz-title {
+    font-size: 1.25rem;
+  }
+  .algoviz-detail {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .algoviz-spinner {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 3px solid #ddd;
+    border-top-color: #555;
+    border-radius: 50%;
+    animation: algoviz-spin 0.9s linear infinite;
+  }
+  @keyframes algoviz-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<script>
+  (function () {
+    var overlay = document.getElementById("algoviz-loading");
+    var start = Date.now();
+    var timer = setInterval(function () {
+      var ready = document.querySelector(".output-area img, marimo-ui-element");
+      if (ready || Date.now() - start > 120000) {
+        clearInterval(timer);
+        overlay.classList.add("done");
+        setTimeout(function () {
+          overlay.remove();
+        }, 400);
+      }
+    }, 250);
+  })();
+</script>

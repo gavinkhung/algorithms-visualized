@@ -38,7 +38,7 @@ project:
     - title: Graphs
       children:
         - file: graph_traversal.md
-        - file: shortest_path.md
+        - file: graph_shortest_path.md
         - file: mst.md
 
 site:

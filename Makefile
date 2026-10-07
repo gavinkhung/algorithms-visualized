@@ -58,16 +58,18 @@ build: $(EMBEDS) book/gifs/.stamp
 
 # Bundle the notebook with algoviz/, export it, and merge the shared marimo
 # assets into book/embed/ so all pages use one copy. The page itself becomes
-# book/embed/<name>.html; the export's CLAUDE.md is skipped.
+# book/embed/<name>.html, with utils/loading.html added before </body>; the
+# export's CLAUDE.md is skipped.
 # --no-sandbox: use the marimo pinned in uv.lock.
 # The export runs in build/standalone/, where it looks for css_file.
-book/embed/%.html: notebooks/%.py $(ALGOVIZ) algoviz/notebook.css $(PSEUDOCODE) utils/bundle_wasm.py uv.lock
+book/embed/%.html: notebooks/%.py $(ALGOVIZ) algoviz/notebook.css $(PSEUDOCODE) utils/bundle_wasm.py utils/loading.html uv.lock
 	uv run python utils/bundle_wasm.py $< -o build/standalone
 	cd build/standalone && uv run marimo export html-wasm $*.py \
 		-o $(BUILD)/wasm/$* --mode run --no-show-code --no-sandbox -f
 	mkdir -p book/embed
 	rsync -a --exclude index.html --exclude CLAUDE.md build/wasm/$*/ book/embed/
-	cp build/wasm/$*/index.html $@
+	perl -0pe 'BEGIN { local $$/; open my $$f, "<", "utils/loading.html" or die; $$o = <$$f> } s|</body>|$$o</body>|' \
+		build/wasm/$*/index.html > $@
 
 # Landing-page GIFs.
 book/gifs/.stamp: $(ALGOVIZ) $(PSEUDOCODE) utils/make_gifs.py uv.lock

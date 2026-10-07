@@ -23,35 +23,35 @@ We begin our journey with a simple problem: how to sort an array of numbers. Thr
 
 :::{card}
 :link: ./array_sorting.md
-:header: **Selection**
+:header: **Selection Sort**
 
 ![Selection sort](./gifs/sorting_selection.gif)
 :::
 
 :::{card}
 :link: ./array_sorting.md
-:header: **Insertion**
+:header: **Insertion Sort**
 
 ![Insertion sort](./gifs/sorting_insertion.gif)
 :::
 
 :::{card}
 :link: ./array_sorting.md
-:header: **Merge**
+:header: **Merge Sort**
 
 ![Merge sort](./gifs/sorting_merge.gif)
 :::
 
 :::{card}
 :link: ./array_sorting.md
-:header: **Quick**
+:header: **Quick Sort**
 
 ![Quicksort](./gifs/sorting_quick.gif)
 :::
 
 :::{card}
 :link: ./array_sorting.md
-:header: **Heap**
+:header: **Heap Sort**
 
 ![Heapsort](./gifs/sorting_heap.gif)
 :::
@@ -67,7 +67,7 @@ We continue our journey with another problem: searching for an element in an arr
 
 :::{card}
 :link: ./array_search.md
-:header: **Linear Scan**
+:header: **Linear Search**
 
 ![Linear scan](./gifs/array_search_linear_scan.gif)
 :::
@@ -81,7 +81,7 @@ We continue our journey with another problem: searching for an element in an arr
 
 :::{card}
 :link: ./array_search.md
-:header: **Quickselect**
+:header: **Quick Select**
 
 ![Quickselect](./gifs/array_search_quickselect.gif)
 :::
@@ -231,21 +231,21 @@ When every edge has the same weight, BFS still works. Dijkstra's algorithm handl
 :class: text-center
 
 :::{card}
-:link: ./shortest_path.md
+:link: ./graph_shortest_path.md
 :header: **Dijkstra**
 
 ![Dijkstra](./gifs/shortest_path_dijkstra.gif)
 :::
 
 :::{card}
-:link: ./shortest_path.md
+:link: ./graph_shortest_path.md
 :header: **Bellman–Ford**
 
 ![Bellman-Ford](./gifs/shortest_path_bellman_ford.gif)
 :::
 
 :::{card}
-:link: ./shortest_path.md
+:link: ./graph_shortest_path.md
 :header: **BFS (Unweighted)**
 
 ![BFS shortest path](./gifs/shortest_path_bfs_unweighted.gif)
@@ -272,13 +272,6 @@ Another problem to investigate with graphs is connecting every node as cheaply a
 :header: **Kruskal**
 
 ![Kruskal](./gifs/mst_kruskal.gif)
-:::
-
-:::{card}
-:link: ./mst.md
-:header: **Maximum Spanning Tree**
-
-![Maximum spanning tree](./gifs/mst_worst_case_spanning_tree.gif)
 :::
 
 ::::

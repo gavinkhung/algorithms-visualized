@@ -52,16 +52,24 @@ def _(SAMPLE, algo, algoviz, editor, input_error, presets, target):
 
 @app.cell
 def _(mo, ui):
-    # The step counter and the buttons that move it.
+    # The step counter, whether it is playing, and the buttons that move it.
     get_step, set_step = mo.state(0)
-    play, speed, transport = ui.playback_controls(set_step)
-    return get_step, play, set_step, speed, transport
+    get_playing, set_playing = mo.state(False)
+    speed, steps = ui.playback_controls(set_step, get_playing, set_playing)
+    return get_playing, get_step, set_playing, set_step, speed, steps
 
 
 @app.cell
-def _(get_step, play, run, set_step, speed, ui):
+def _(get_playing, set_playing, steps, ui):
+    # Re-runs when stepping pauses, so the switch shows as off.
+    transport = ui.transport(get_playing, set_playing, steps)
+    return (transport,)
+
+
+@app.cell
+def _(get_playing, get_step, run, set_step, speed, ui):
     # The only cell that reads `speed`; each tick re-runs it.
-    ui.heartbeat(play, speed, run.frames, get_step, set_step)
+    ui.heartbeat(get_playing(), speed, run.frames, get_step, set_step)
     return
 
 
