@@ -1,6 +1,5 @@
 ---
 title: Algorithms Visualized
-thumbnail: ./gifs/sorting_selection.gif
 site:
   hide_outline: false
 ---

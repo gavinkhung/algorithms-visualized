@@ -20,6 +20,11 @@ project:
     - name: Gavin Hung
       url: https://www.linkedin.com/in/gavinkhung/
   license: MIT
+  subject: Interactive Notes
+  github: https://github.com/gavinkhung/algorithms-visualized
+  venue:
+    title: Stanford CS161
+    url: https://web.stanford.edu/class/cs161/
 
   toc:
     - file: index.md

@@ -1,6 +1,7 @@
 ---
 title: Array Sorting
 subtitle: Ways to put an array in order, from quadratic to optimal
+description: Watch selection, insertion, merge, quick, and heap sort run step by step, and see why some take quadratic time while others reach O(n log n).
 ---
 
 Pick a sorting algorithm and watch it rearrange the array one comparison at a time. Selection and insertion sort are simple but take quadratic time. On the other hand, merge sort, quicksort, and heapsort use divide and conquer, randomness, and a heap to reach $O(n \log n)$
