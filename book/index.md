@@ -218,7 +218,7 @@ Let's begin our exploration by seeing how graphs can be traversed. On a graph wi
 
 The first graph problem we will dive into is finding the path between two nodes with the minimum total weight, where each edge can have a different weight. The challenge is that we can't simply brute force it by listing every possible path and picking the cheapest, since a graph can have exponentially many paths. Instead, we have to leverage other data structures and algorithms, each of which comes with its own constraints.
 
-When every edge has the same weight, BFS still works. Dijkstra's algorithm handles non-negative weights by greedily settling the closest node in $O((n + m)\log n)$ time, and Bellman–Ford also handles negative weights in $O(nm)$ time.
+When every edge has the same weight, BFS still works. Dijkstra's algorithm handles non-negative weights by greedily settling the closest node in $O((n + m)\log n)$ time, and Bellman–Ford also handles negative weights in $O(n * m)$ time.
 
 ::::{grid} 1 2 2 3
 :class: text-center
