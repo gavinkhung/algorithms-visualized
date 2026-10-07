@@ -22,6 +22,7 @@ project:
   license: MIT
   subject: Interactive Notes
   github: https://github.com/gavinkhung/algorithms-visualized
+  banner: ./banner.png
   venue:
     title: Stanford CS161
     url: https://web.stanford.edu/class/cs161/
