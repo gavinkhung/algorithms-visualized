@@ -3,8 +3,8 @@
   <div class="algoviz-spinner"></div>
   <p class="algoviz-title">Starting the visualizer…</p>
   <p class="algoviz-detail">
-    Python runs right in your browser. The first visit may take up to 10
-    seconds. After the first visit, it is cached.
+    Python runs right in your browser, so this takes 10-30 seconds. Later visits
+    skip the download and start faster.
   </p>
 </div>
 <style>
@@ -56,11 +56,23 @@
 </style>
 <script>
   (function () {
+    // After SLOW ms the message suggests a refresh; after GIVE_UP ms the
+    // overlay goes, so marimo's own progress or error shows through.
+    var SLOW = 30000;
+    var GIVE_UP = 60000;
     var overlay = document.getElementById("algoviz-loading");
+    var detail = overlay.querySelector(".algoviz-detail");
     var start = Date.now();
     var timer = setInterval(function () {
+      var waited = Date.now() - start;
       var ready = document.querySelector(".output-area img, marimo-ui-element");
-      if (ready || Date.now() - start > 120000) {
+      if (waited > SLOW && !overlay.dataset.slow) {
+        overlay.dataset.slow = "1";
+        detail.textContent =
+          "Still loading. On a slow connection this can take a while; " +
+          "if nothing changes, try refreshing the page.";
+      }
+      if (ready || waited > GIVE_UP) {
         clearInterval(timer);
         overlay.classList.add("done");
         setTimeout(function () {
