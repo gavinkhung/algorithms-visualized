@@ -186,7 +186,7 @@ However, ordering alone is not enough: a binary search tree is only fast if it s
 
 We have now seen how data structures and algorithm design can be combined to solve problems. Many problems can be represented with a new data structure called a graph, which is a set of nodes connected by edges.
 
-Let's begin our exploration by seeing how graphs can be traversed. On a graph with $n$ nodes and $m$ edges, depth-first and breadth-first search visit every node in $O(n + m)$ time, and they power topological sorting and cycle detection.
+Let's begin our exploration by seeing how graphs can be traversed. On a graph with $n$ nodes and $m$ edges, depth-first and breadth-first search visit every node in $O(n + m)$ time, and they power topological sorting.
 
 ::::{grid} 1 2 2 3
 :class: text-center
@@ -210,13 +210,6 @@ Let's begin our exploration by seeing how graphs can be traversed. On a graph wi
 :header: **Topological Sort**
 
 ![Toposort](./gifs/traversal_toposort_kahn.gif)
-:::
-
-:::{card}
-:link: ./graph_traversal.md
-:header: **Cycle Detection**
-
-![Cycle check](./gifs/traversal_cycle_check_dfs.gif)
 :::
 
 ::::

@@ -1,5 +1,8 @@
 .PHONY: help test notebook build dev clean
 
+# Delete a target whose recipe failed, so a half-written file is rebuilt.
+.DELETE_ON_ERROR:
+
 # Python commands run through uv, using the versions pinned in uv.lock.
 
 ROOT  := $(CURDIR)
@@ -68,7 +71,7 @@ book/embed/%.html: notebooks/%.py $(ALGOVIZ) algoviz/notebook.css $(PSEUDOCODE) 
 		-o $(BUILD)/wasm/$* --mode run --no-show-code --no-sandbox -f
 	mkdir -p book/embed
 	rsync -a --exclude index.html --exclude CLAUDE.md build/wasm/$*/ book/embed/
-	perl -0pe 'BEGIN { local $$/; open my $$f, "<", "utils/loading.html" or die; $$o = <$$f> } s|</body>|$$o</body>|' \
+	perl -0pe 'BEGIN { local $$/; open my $$f, "<", "utils/loading.html" or die; $$o = <$$f> } s|</body>|$$o</body>| or die "no </body> in $$ARGV\n"' \
 		build/wasm/$*/index.html > $@
 
 # Landing-page GIFs.
