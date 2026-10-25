@@ -268,6 +268,45 @@ Another problem to investigate with graphs is connecting every node as cheaply a
 
 ::::
 
+## Notes
+
+My handwritten notes for each topic, with the derivations and proofs behind the visualizations.
+
+Sorting
+
+- [Selection Sort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/selection_sort.pdf)
+- [Insertion Sort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/insertion_sort.pdf)
+- [Merge Sort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/merge_sort.pdf)
+- [Quicksort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/quick_sort.pdf)
+- [Heapsort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/heap_sort.pdf)
+- [Comparison Sorts](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/sorting/comparison_sorts.pdf)
+
+Search
+
+- [Quickselect](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/search/quick_select.pdf)
+
+Hash Tables
+
+- [Hash Tables](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/hash_table/hash_table.pdf)
+- [Amortized Time](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/hash_table/amortized_time.pdf)
+- [Potential Method](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/hash_table/potential_method.pdf)
+
+Trees
+
+- [Binary Search Trees](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/trees/binary_search_tree.pdf)
+- [AVL Trees](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/trees/avl_tree.pdf)
+- [2–3 Trees](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/trees/23_tree.pdf)
+- [Splay Trees](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/trees/splay_tree.pdf)
+
+Graphs
+
+- [Topological Sort](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/topological_sort.pdf)
+- [Tarjan's Connected Components](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/tarjans_connect_components.pdf)
+- [Bellman–Ford and Dijkstra](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/bellman_ford_dijskstra.pdf)
+- [Minimum Spanning Trees](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/minimum_spanning_tree.pdf)
+- [Greedy Algorithms](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/greedy_algorithms.pdf)
+- [Dynamic Programming](https://github.com/gavinkhung/algorithms-visualized/blob/main/notes/graphs/dynamic_programming.pdf)
+
 ## About the Book
 
 While taking [CS161 Design and Analysis of Algorithms](https://web.stanford.edu/class/cs161/), I became very interested in analyzing the mathematical runtime of data structures and algorithms. I believe it is the perfect combination of probability, problem solving, and creativity.
