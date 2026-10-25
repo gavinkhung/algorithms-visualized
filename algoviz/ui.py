@@ -23,9 +23,10 @@ def playback_controls(
 ):
     """Return ``speed, steps``.
 
-    ``speed`` must be bound to a notebook variable because another cell reads
-    it. ``steps`` is the row of step buttons; it holds them, which keeps them
-    alive. Stepping by hand pauses auto-play.
+    ``speed`` is the auto-play interval; it must be bound to a notebook
+    variable because another cell reads it. ``steps`` is the row of step
+    buttons; it holds them, which keeps them alive. Stepping by hand pauses
+    auto-play.
     """
 
     def step(by):
@@ -39,9 +40,7 @@ def playback_controls(
     restart = mo.ui.button(label="restart", on_change=lambda _: set_step(0))
     prev = mo.ui.button(label="< step", on_change=step(-1))
     nxt = mo.ui.button(label="step >", on_change=step(1))
-    speed = mo.ui.refresh(
-        options=speeds, default_interval=default, label="speed"
-    )
+    speed = mo.ui.dropdown(options=speeds, value=default, label="speed")
     steps = mo.hstack([restart, prev, nxt], justify="start", gap=1)
     return speed, steps
 
@@ -58,13 +57,25 @@ def transport(get_playing, set_playing, steps):
     return mo.hstack([play, steps], justify="start", gap=1)
 
 
-def heartbeat(playing, speed, frames, get_step, set_step):
-    """Advance one frame per tick while playing; return the timer widget.
+def timer(playing, speed):
+    """A timer that ticks every ``speed`` while playing, else ``None``.
 
-    Call this from its own cell, the only one that reads ``speed``; every
-    tick re-runs the cells that read it. The step is only set when it
-    changes, because marimo's setter always triggers an update.
-    A step past the last frame is clamped back.
+    Call this from its own cell. It only exists while playing, so a paused
+    notebook runs no Python between clicks.
+    """
+    if not playing:
+        return None
+    return mo.ui.refresh(default_interval=speed.value)
+
+
+def heartbeat(playing, tick, speed, frames, get_step, set_step, set_playing):
+    """Advance one frame per tick while playing; return the speed control.
+
+    Call this from its own cell, the only one that reads ``tick`` (the
+    ``timer``); every tick re-runs it. The step is only set when it changes,
+    because marimo's setter always triggers an update. A step past the last
+    frame is clamped back, and reaching the last frame pauses, which removes
+    the timer.
     """
     if frames:
         current, last = get_step(), len(frames) - 1
@@ -72,7 +83,15 @@ def heartbeat(playing, speed, frames, get_step, set_step):
             set_step(last)
         elif playing and current < last:
             set_step(current + 1)
-    return speed
+        elif playing:
+            set_playing(False)
+    if tick is None:
+        return speed
+    # The timer has to be on the page to tick, but its button is not needed.
+    return mo.hstack(
+        [speed, mo.Html(f"<div style='display:none'>{tick}</div>")],
+        justify="start",
+    )
 
 
 def variables(ints):

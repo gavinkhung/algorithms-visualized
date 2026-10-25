@@ -60,9 +60,18 @@ def _(get_playing, set_playing, steps, ui):
 
 
 @app.cell
-def _(get_playing, get_step, run, set_step, speed, ui):
-    # The only cell that reads `speed`; each tick re-runs it.
-    ui.heartbeat(get_playing(), speed, run.frames, get_step, set_step)
+def _(get_playing, speed, ui):
+    # Only exists while playing, so a paused notebook runs no Python.
+    timer = ui.timer(get_playing(), speed)
+    return (timer,)
+
+
+@app.cell
+def _(get_playing, get_step, run, set_playing, set_step, speed, timer, ui):
+    # The only cell that reads `timer`; each tick re-runs it.
+    ui.heartbeat(
+        get_playing(), timer, speed, run.frames, get_step, set_step, set_playing
+    )
     return
 
 
